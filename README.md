@@ -1,6 +1,6 @@
 # CineHub – Movie & TV Show Explorer
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=appveyor)](movie-app-rea-ct.netlify.app)
+[Click here to see the live app](https://movie-app-rea-ct.netlify.app/)
 
 CineHub is a modern, responsive web application that lets users explore, search, and compare movies and TV shows. It provides real-time data from TMDB and OMDb APIs and allows personalized watchlists and favorites. The app has a sleek, dark-themed design with an intuitive interface.  
 
@@ -39,16 +39,17 @@ CineHub is a modern, responsive web application that lets users explore, search,
 
 ## Project Structure
 
-cinehub/
+client/
 ├─ src/
-│ ├─ components/ # Header, Sidebar, Footer, MovieLogo
-│ ├─ pages/ # Home, Trending, Genre, Compare, Details, Watchlist, Favourites, Search
-│ ├─ context/ # MovieContext
-│ ├─ App.jsx
-│ └─ index.jsx
-├─ public/
-├─ package.json
-└─ tailwind.config.js
+│  ├─ components/      # Reusable UI components (Header, Sidebar, Footer, MovieLogo)
+│  ├─ pages/           # Page components (Home, Trending, Genre, Compare, Details, Watchlist, Favourites, Search)
+│  ├─ context/         # Global state management (MovieContext)
+│  ├─ App.jsx          # Main app component
+│  └─ index.jsx        # Entry point
+├─ public/             # Static assets
+├─ package.json        # Dependencies & scripts
+└─ tailwind.config.js  # TailwindCSS configuration
+
 
 ---
 ## Author
