@@ -1,4 +1,6 @@
 import "./App.css";
+import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
@@ -8,10 +10,8 @@ import WatchlistPage from "./pages/WatchlistPage";
 import TrendingIndianPage from "./pages/TrendingIndianPage";
 import Footer from "./components/Footer";
 import TrendingPage from "./pages/TrendingPage";
-import { useState } from "react";
 import GenrePage from "./pages/GenrePage";
 import { MovieProvider } from "./context/MovieContext";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Details from "./pages/DetailsPage";
 import PersonDetails from "./pages/PersonDetails";
 import useDisableZoom from "./components/DisableZoom";
@@ -32,7 +32,7 @@ function App() {
 <Header isOpen={isOpen} setIsOpen={setIsOpen} />
 <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
-          <div className="content pt-[64px] px-4">
+          <div className="content pt-[64px] px-2 md:px-4 ">
            
             <Routes>
               <Route path="/" element={<HomePage />} />

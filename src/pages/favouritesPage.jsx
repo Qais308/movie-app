@@ -7,7 +7,7 @@ const FavouritePage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl text-white font-bold mb-4 px-4">My Favourites</h1>
+      <h1 className="text-2xl text-white font-bold mb-4 px-1 md:px-4">My Favourites</h1>
       <MovieSection movies={favourites} />
     </div>
   );

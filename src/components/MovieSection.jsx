@@ -1,44 +1,44 @@
-import { useEffect, useState } from "react";
-import MovieCard from "./MovieCard";
+// import { useEffect, useState } from "react";
+// import MovieCard from "./MovieCard";
 
-const MovieSection = ({ fetchUrl, movies: propMovies, title }) => {
-  const [movies, setMovies] = useState([]);
+// const MovieSection = ({ fetchUrl, movies: propMovies, title }) => {
+//   const [movies, setMovies] = useState([]);
 
-  useEffect(() => {
-    if (propMovies) {
-      setMovies(propMovies);
-      return;
-    }
+//   useEffect(() => {
+//     if (propMovies) {
+//       setMovies(propMovies);
+//       return;
+//     }
 
-    async function fetchMovies() {
-      if (!fetchUrl) return;
+//     async function fetchMovies() {
+//       if (!fetchUrl) return;
 
-      const res = await fetch(fetchUrl);
-      const data = await res.json();
-      if (data.results) setMovies(data.results);
-    }
+//       const res = await fetch(fetchUrl);
+//       const data = await res.json();
+//       if (data.results) setMovies(data.results);
+//     }
 
-    fetchMovies();
-  }, [fetchUrl, propMovies]);
+//     fetchMovies();
+//   }, [fetchUrl, propMovies]);
 
-  return (
-    <div className="mb-12 w-[95vw] mx-auto">
-      {title && <h2 className="text-2xl font-bold mb-6 px-2">{title}</h2>}
+//   return (
+//     <div className="mb-12 w-[95vw] mx-auto">
+//       {title && <h2 className="text-2xl font-bold mb-6 px-2">{title}</h2>}
 
-      <div className="flex flex-wrap gap-x-5 gap-y-12 p-2 justify-center">
-        {movies && movies.length > 0 ? (
-          movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))
-        ) : (
-          <p className="text-gray-400 text-lg mt-10">No movies yet</p>
-        )}
-      </div>
-    </div>
-  );
-};
+//       <div className="flex flex-wrap gap-x-5 gap-y-12 p-2 justify-center">
+//         {movies && movies.length > 0 ? (
+//           movies.map((movie) => (
+//             <MovieCard key={movie.id} movie={movie} />
+//           ))
+//         ) : (
+//           <p className="text-gray-400 text-lg mt-10">No movies yet</p>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
 
-export default MovieSection;
+// export default MovieSection;
 
 
 
@@ -83,3 +83,43 @@ export default MovieSection;
 
 // export default MovieSection;
 
+import { useEffect, useState } from "react";
+import MovieCard from "./MovieCard";
+
+const MovieSection = ({ fetchUrl, movies: propMovies, title }) => {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    if (propMovies) {
+      setMovies(propMovies);
+      return;
+    }
+
+    async function fetchMovies() {
+      if (!fetchUrl) return;
+
+      const res = await fetch(fetchUrl);
+      const data = await res.json();
+      if (data.results) setMovies(data.results);
+    }
+
+    fetchMovies();
+  }, [fetchUrl, propMovies]);
+
+  return (
+    <div className="mb-12 w-[95vw] mx-auto">
+      {title && <h2 className="text-xl sm:text-2xl font-bold mb-6 px-2">{title}</h2>}
+
+      {/* Grid: 2 columns on small screens, 4+ on larger */}
+      <div className="flex flex-wrap gap-4 justify-center">
+        {movies && movies.length > 0 ? (
+          movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
+        ) : (
+          <p className="text-gray-400 text-lg mt-10">No movies yet</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default MovieSection;

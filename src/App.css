@@ -3,11 +3,19 @@ a {
   text-decoration: none !important;
   color: inherit !important;
 }
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
+/* Hide scrollbar for all elements */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
 }
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
+
+/* Optional: smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
 

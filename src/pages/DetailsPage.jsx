@@ -1,62 +1,69 @@
 
 
 // import { useEffect, useState } from "react";
-// import { useParams, useNavigate } from "react-router-dom";
+// import { useParams, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+// import ReviewsSection from "../components/ReviewSection";
 
-// const TMDB_KEY = "46b71fe47d81e124380aeddcf9b37ccd"; // <- add your TMDb key
-// const OMDB_KEY = "ad50766f"; // <- add your OMDb key
+
+// const TMDB_KEY = "46b71fe47d81e124380aeddcf9b37ccd";
+// const OMDB_KEY = "ad50766f";
 
 // const Details = () => {
 //   const { id } = useParams();
+//   const [searchParams] = useSearchParams();
+//   const mediaType = searchParams.get("type") || "movie"; // movie or tv
 //   const navigate = useNavigate();
+// const location = useLocation();
+// const params = new URLSearchParams(location.search);
+// const type = params.get("type") || "movie";  // fallback if missing
+
+
 //   const [movie, setMovie] = useState(null);
 //   const [omdb, setOmdb] = useState(null);
 //   const [trailerKey, setTrailerKey] = useState("");
+//   const [reviews, setReviews] = useState([]);
+
 
 //   useEffect(() => {
-//     async function fetchMovie() {
+//     async function fetchDetails() {
 //       try {
-//         let data;
+//         // TMDb endpoint based on type
+//         const endpoint =
+//           mediaType === "tv"
+//             ? `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits`
+//             : `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits`;
 
-//         // Try fetching as movie
-//         let res = await fetch(
-//           `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits`
-//         );
-//         data = await res.json();
-
-//         // If not found, fetch as TV show
-//         if (data.status_code === 34) {
-//           res = await fetch(
-//             `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits`
-//           );
-//           data = await res.json();
-//           data.is_tv = true;
-//         }
-
+//         const res = await fetch(endpoint);
+//         const data = await res.json();
 //         setMovie(data);
+//      const fetchReviews = async (page = 1) => {
+//   try {
+//     const res = await fetch(
+//       `https://api.themoviedb.org/3/${type || "movie"}/${id}/reviews?api_key=${TMDB_KEY}&language=en-US&page=${page}`
+//     );
+//     const data = await res.json();
+//     if (page === 1) {
+//       setReviews(data.results);
+//     } else {
+//       setReviews((prev) => [...prev, ...data.results]);
+//     }
+//     setReviews(page);
+//     setReviewsTotalPages(data.total_pages);
+//   } catch (err) {
+//     console.warn("Failed to fetch reviews:", err);
+//   }
+// };
 
-//         // Trailer selection (robust for movies and TV shows)
+
+
+//         // Get trailer (YouTube) for both movies & TV
 //         const videos = data.videos?.results || [];
-//         const preferredTypes = [
-//           "Trailer",
-//           "Teaser",
-//           "Clip",
-//           "Featurette",
-//           "Behind the Scenes",
-//           "Promo",
-//         ];
-
-//         let trailer = null;
-//         for (let type of preferredTypes) {
-//           trailer = videos.find((v) => v.site === "YouTube" && v.type === type);
-//           if (trailer) break;
-//         }
-//         if (!trailer) {
-//           trailer = videos.find((v) => v.site === "YouTube");
-//         }
+//         let trailer =
+//           videos.find((vid) => vid.type === "Trailer" && vid.site === "YouTube") ||
+//           videos.find((vid) => vid.site === "YouTube");
 //         if (trailer) setTrailerKey(trailer.key);
 
-//         // Fetch OMDb data if IMDb ID exists
+//         // OMDb fetch using imdbID
 //         if (data.imdb_id) {
 //           try {
 //             const omdbRes = await fetch(
@@ -66,7 +73,7 @@
 //             const omdbData = await omdbRes.json();
 //             if (omdbData.Response === "True") setOmdb(omdbData);
 //           } catch (err) {
-//             console.warn("OMDb fetch failed, skipping:", err.message);
+//             console.warn("OMDb fetch failed:", err.message);
 //           }
 //         }
 //       } catch (err) {
@@ -74,22 +81,14 @@
 //       }
 //     }
 
-//     fetchMovie();
-//   }, [id]);
+//     fetchDetails();
+//   }, [id, mediaType]);
 
 //   if (!movie)
 //     return <p className="text-center mt-20 text-white">Loading details...</p>;
 
-//   // Dynamic fields for TV shows vs movies
-//   const title = movie.is_tv ? movie.name : movie.title;
-//   const releaseDate = movie.is_tv ? movie.first_air_date : movie.release_date;
-//   const runtime = movie.is_tv
-//     ? movie.episode_run_time?.[0] || "N/A"
-//     : movie.runtime || "N/A";
-//   const numberOfSeasons = movie.is_tv ? movie.number_of_seasons : null;
-
 //   return (
-//     <div className="max-w-7xl mx-auto p-4 md:p-6 text-white">
+//     <div className="max-w-7xl mx-auto p-2 md:p-6 text-white">
 //       {/* Poster + Info */}
 //       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
 //         <img
@@ -98,28 +97,33 @@
 //               ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
 //               : "https://via.placeholder.com/500x750?text=No+Image"
 //           }
-//           alt={title}
+//           alt={movie.name || movie.title}
 //           className="flex-shrink-0 w-48 sm:w-53 md:w-62 lg:w-70 xl:w-75 rounded-lg shadow-lg"
 //         />
 
 //         <div className="flex-1 mt-4 sm:mt-0">
 //           <h1 className="text-sm sm:text-base md:text-lg lg:text-2xl xl:text-3xl font-bold mb-1 sm:mb-2">
-//             {title}
+//             {movie.title || movie.name}
 //           </h1>
 //           <p className="text-gray-300 italic text-xs sm:text-sm md:text-base mb-1 sm:mb-2">
 //             {movie.tagline || ""}
 //           </p>
 //           <p className="text-xs sm:text-sm md:text-base">
-//             <strong>Release Date:</strong> {releaseDate || "N/A"}
+//             <strong>Release Date:</strong>{" "}
+//             {movie.release_date || movie.first_air_date || "N/A"}
 //           </p>
-//           <p className="text-xs sm:text-sm md:text-base">
-//             <strong>Runtime:</strong> {runtime} min
-//           </p>
-//           {numberOfSeasons && (
+//           {mediaType === "tv" && (
 //             <p className="text-xs sm:text-sm md:text-base">
-//               <strong>Seasons:</strong> {numberOfSeasons}
+//               <strong>Seasons:</strong> {movie.number_of_seasons || "N/A"}
 //             </p>
 //           )}
+//           <p className="text-xs sm:text-sm md:text-base">
+//             <strong>Runtime:</strong>{" "}
+//             {mediaType === "tv"
+//               ? movie.episode_run_time?.[0] || "N/A"
+//               : movie.runtime || "N/A"}{" "}
+//             min
+//           </p>
 //           <p className="text-xs sm:text-sm md:text-base">
 //             <strong>Genres:</strong>{" "}
 //             {movie.genres?.map((g) => g.name).join(", ") || "N/A"}
@@ -149,7 +153,7 @@
 //             .slice(0, 10)
 //             .map((actor) => (
 //               <div
-//                 key={actor.cast_id || actor.credit_id}
+//                 key={actor.cast_id}
 //                 className="text-center min-w-[60px] sm:min-w-[80px] md:min-w-[100px]"
 //               >
 //                 <img
@@ -158,9 +162,7 @@
 //                   className="w-22 h-22 sm:w-26 sm:h-32 md:w-30 md:h-40 object-cover rounded-lg mx-auto cursor-pointer"
 //                   onClick={() => navigate(`/person/${actor.id}`)}
 //                 />
-//                 <p className="text-[9px] sm:text-xs md:text-sm mt-1">
-//                   {actor.name}
-//                 </p>
+//                 <p className="text-[9px] sm:text-xs md:text-sm mt-1">{actor.name}</p>
 //                 <p className="text-[8px] sm:text-[10px] md:text-xs text-gray-400">
 //                   as {actor.character}
 //                 </p>
@@ -189,18 +191,24 @@
 //           </div>
 //         ) : (
 //           <p className="text-gray-400 mt-1 sm:mt-2">
-//             Trailer not available for this title.
+//             Trailer not available for this {mediaType}.
 //           </p>
 //         )}
 //       </div>
+//       {/* Reviews */}
+// <ReviewsSection reviews={reviews} />
+
 //     </div>
+    
 //   );
 // };
+
 
 // export default Details;
 
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import ReviewsSection from "../components/ReviewSection";
 
 const TMDB_KEY = "46b71fe47d81e124380aeddcf9b37ccd";
 const OMDB_KEY = "ad50766f";
@@ -210,57 +218,86 @@ const Details = () => {
   const [searchParams] = useSearchParams();
   const mediaType = searchParams.get("type") || "movie"; // movie or tv
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const type = params.get("type") || "movie"; // fallback if missing
 
   const [movie, setMovie] = useState(null);
   const [omdb, setOmdb] = useState(null);
   const [trailerKey, setTrailerKey] = useState("");
+  const [reviews, setReviews] = useState([]);
+  const [reviewsPage, setReviewsPage] = useState(1);
+  const [reviewsTotalPages, setReviewsTotalPages] = useState(1);
 
-  useEffect(() => {
-    async function fetchDetails() {
-      try {
-        // TMDb endpoint based on type
-        const endpoint =
-          mediaType === "tv"
-            ? `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits`
-            : `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits`;
+  // ✅ Fetch movie/TV details
+  const fetchDetails = async () => {
+    try {
+      const endpoint =
+        mediaType === "tv"
+          ? `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits`
+          : `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits`;
 
-        const res = await fetch(endpoint);
-        const data = await res.json();
-        setMovie(data);
+      const res = await fetch(endpoint);
+      const data = await res.json();
+      setMovie(data);
 
-        // Get trailer (YouTube) for both movies & TV
-        const videos = data.videos?.results || [];
-        let trailer =
-          videos.find((vid) => vid.type === "Trailer" && vid.site === "YouTube") ||
-          videos.find((vid) => vid.site === "YouTube");
-        if (trailer) setTrailerKey(trailer.key);
+      // Get trailer
+      const videos = data.videos?.results || [];
+      let trailer =
+        videos.find((vid) => vid.type === "Trailer" && vid.site === "YouTube") ||
+        videos.find((vid) => vid.site === "YouTube");
+      if (trailer) setTrailerKey(trailer.key);
 
-        // OMDb fetch using imdbID
-        if (data.imdb_id) {
-          try {
-            const omdbRes = await fetch(
-              `https://www.omdbapi.com/?i=${data.imdb_id}&apikey=${OMDB_KEY}`
-            );
-            if (!omdbRes.ok) throw new Error("OMDb fetch failed");
-            const omdbData = await omdbRes.json();
-            if (omdbData.Response === "True") setOmdb(omdbData);
-          } catch (err) {
-            console.warn("OMDb fetch failed:", err.message);
-          }
+      // OMDb fetch (IMDb rating)
+      if (data.imdb_id) {
+        try {
+          const omdbRes = await fetch(
+            `https://www.omdbapi.com/?i=${data.imdb_id}&apikey=${OMDB_KEY}`
+          );
+          if (!omdbRes.ok) throw new Error("OMDb fetch failed");
+          const omdbData = await omdbRes.json();
+          if (omdbData.Response === "True") setOmdb(omdbData);
+        } catch (err) {
+          console.warn("OMDb fetch failed:", err.message);
         }
-      } catch (err) {
-        console.error("Error fetching details:", err);
       }
+    } catch (err) {
+      console.error("Error fetching details:", err);
     }
+  };
 
+  // ✅ Fetch reviews (separate function)
+  const fetchReviews = async (page = 1) => {
+    try {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/${type}/${id}/reviews?api_key=${TMDB_KEY}&language=en-US&page=${page}`
+      );
+      const data = await res.json();
+
+      if (page === 1) {
+        setReviews(data.results);
+      } else {
+        setReviews((prev) => [...prev, ...data.results]);
+      }
+
+      setReviewsPage(page);
+      setReviewsTotalPages(data.total_pages);
+    } catch (err) {
+      console.warn("Failed to fetch reviews:", err);
+    }
+  };
+
+  // ✅ Run on mount
+  useEffect(() => {
     fetchDetails();
+    fetchReviews(); // fetch first page
   }, [id, mediaType]);
 
   if (!movie)
     return <p className="text-center mt-20 text-white">Loading details...</p>;
 
   return (
-    <div className="max-w-7xl mx-auto p-4 md:p-6 text-white">
+    <div className="max-w-7xl mx-auto p-2 md:p-6 text-white">
       {/* Poster + Info */}
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
         <img
@@ -367,6 +404,14 @@ const Details = () => {
           </p>
         )}
       </div>
+
+      {/* ✅ Reviews */}
+      <ReviewsSection
+        reviews={reviews}
+        fetchReviews={fetchReviews}
+        reviewsPage={reviewsPage}
+        reviewsTotalPages={reviewsTotalPages}
+      />
     </div>
   );
 };

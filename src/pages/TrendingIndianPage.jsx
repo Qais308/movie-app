@@ -22,8 +22,8 @@ const TrendingIndianPage = () => {
   }, []);
 
   return (
-    <div className="px-4">
-      <h1 className="text-3xl font-bold mb-4">Trending in India</h1>
+    <div className="px-1 md:px-4">
+      <h1 className="text-3xl text-white font-bold mb-4">Trending in India</h1>
       {movies.length > 0 ? (
         <MovieSection movies={movies} />
       ) : (

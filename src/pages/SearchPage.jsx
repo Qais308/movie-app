@@ -1,14 +1,17 @@
+
+
 // import { useState, useEffect } from "react";
-// import { useNavigate, useLocation } from "react-router-dom";
-// import MovieCard from "../components/MovieCard"; // your existing MovieCard
+// import { useLocation } from "react-router-dom";
+// import MovieCard from "../components/MovieCard";
 
-// export default function SearchPage() {
-//   const [results, setResults] = useState([]);
-//   const navigate = useNavigate();
+// const TMDB_KEY = "46b71fe47d81e124380aeddcf9b37ccd";
+
+// const SearchPage = () => {
 //   const location = useLocation();
-
 //   const params = new URLSearchParams(location.search);
 //   const query = params.get("query") || "";
+
+//   const [results, setResults] = useState([]);
 
 //   useEffect(() => {
 //     if (!query) return;
@@ -16,130 +19,108 @@
 //     const fetchMovies = async () => {
 //       try {
 //         const res = await fetch(
-//           `https://api.themoviedb.org/3/search/movie?api_key=46b71fe47d81e124380aeddcf9b37ccd&language=en-US&query=${encodeURIComponent(
-//             query
-//           )}`
+//           `https://api.themoviedb.org/3/search/multi?api_key=${TMDB_KEY}&language=en-US&query=${encodeURIComponent(query)}`
 //         );
 //         const data = await res.json();
 
-        
-//        setResults(
-//   data.results
-//     ?.filter((movie) => movie.poster_path) // keep only movies with posters
-//     .slice(0, 15) || []                     // take top 15 or empty array
-// );
+//         // Filter out items without poster or release date / first_air_date
+//         const filtered = data.results.filter(
+//           (item) => item.poster_path && (item.release_date || item.first_air_date)
+//         );
 
-//       } catch (error) {
-//         console.error("Error fetching movies:", error);
+//         // Sort exact matches first
+//         const sorted = filtered.sort((a, b) => {
+//           const searchLower = query.toLowerCase();
+//           const aName = (a.title || a.name || "").toLowerCase();
+//           const bName = (b.title || b.name || "").toLowerCase();
+//           if (aName === searchLower) return -1;
+//           if (bName === searchLower) return 1;
+//           return 0;
+//         });
+
+//         setResults(sorted.slice(0, 15));
+//       } catch (err) {
+//         console.error("Error fetching search results:", err);
 //       }
 //     };
 
 //     fetchMovies();
 //   }, [query]);
 
-//   const handleDetails = (id) => {
-//     navigate(`/details/${id}`);
-//   };
-
 //   return (
-//     <div className="p-6 pt-24">
-//       <h2 className="text-2xl font-bold text-white mb-6">
-//         Search Results for: <span className="text-red-400">{query}</span>
-//       </h2>
-
+//     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
 //       {results.length > 0 ? (
-//         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-//           {results.map((movie) => (
-//             <MovieCard
-//               key={movie.id}
-//               movie={movie}
-//               onDetails={() => handleDetails(movie.id)}
-//               allowWatchlist={true}
-//               allowFavorite={true}
-//             />
-//           ))}
-//         </div>
+//         results.map((item) => <MovieCard key={item.id} movie={item} />)
 //       ) : (
-//         <p className="text-gray-400 text-center col-span-full">
-//           No movies found.
+//         <p className="text-white col-span-full text-center mt-10">
+//           No results found for "{query}"
 //         </p>
 //       )}
 //     </div>
 //   );
-// }
+// };
 
-import { useState, useEffect } from "react";
+// export default SearchPage;
+
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 
+const TMDB_KEY = "46b71fe47d81e124380aeddcf9b37ccd";
+
 const SearchPage = () => {
   const location = useLocation();
-  const query = new URLSearchParams(location.search).get("query") || "";
-  const [results, setResults] = useState([]);
+  const params = new URLSearchParams(location.search);
+  const query = params.get("query") || "";
 
-  // API key placeholders
-  const tmdbApiKey = "46b71fe47d81e124380aeddcf9b37ccd";
-  const omdbApiKey = "ad50766f";
+  const [results, setResults] = useState([]);
 
   useEffect(() => {
     if (!query) return;
 
-    const fetchResults = async () => {
+    const fetchMovies = async () => {
       try {
-        // --- TMDb Movies ---
-        const tmdbRes = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${encodeURIComponent(query)}&language=en-US`
+        const res = await fetch(
+          `https://api.themoviedb.org/3/search/multi?api_key=${TMDB_KEY}&language=en-US&query=${encodeURIComponent(query)}`
         );
-        const tmdbData = await tmdbRes.json();
-        const movies = tmdbData.results
-          .filter((m) => m.poster_path) // only with poster
-          .map((m) => ({ ...m, media_type: "movie" }));
+        const data = await res.json();
 
-        // --- OMDb Series ---
-        const omdbRes = await fetch(
-          `https://www.omdbapi.com/?apikey=${omdbApiKey}&s=${encodeURIComponent(query)}&type=series`
+        const filtered = data.results.filter(
+          (item) => item.poster_path || item.Poster // keep movies or series with poster
         );
-        const omdbData = await omdbRes.json();
-        const series = omdbData.Search?.filter(
-          (s) => s.Poster && s.Poster !== "N/A"
-        ).map((s) => ({
-          id: s.imdbID,
-          title: s.Title,
-          poster_path: s.Poster, // full URL
-          media_type: "tv",
-        })) || [];
 
-        // --- Combine movies + series ---
-        const combined = [...movies, ...series];
+        // Exact matches first
+        const sorted = filtered.sort((a, b) => {
+          const searchLower = query.toLowerCase();
+          const aName = (a.title || a.name || "").toLowerCase();
+          const bName = (b.title || b.name || "").toLowerCase();
+          if (aName === searchLower) return -1;
+          if (bName === searchLower) return 1;
+          return 0;
+        });
 
-        // --- Prioritize exact matches ---
-        const exactMatch = combined.filter(
-          (item) =>
-            item.title?.toLowerCase() === query.toLowerCase() ||
-            item.name?.toLowerCase() === query.toLowerCase()
-        );
-        const others = combined.filter((item) => !exactMatch.includes(item));
-
-        setResults([...exactMatch, ...others].slice(0, 15));
+        setResults(sorted.slice(0, 20));
       } catch (err) {
         console.error("Error fetching search results:", err);
       }
     };
 
-    fetchResults();
-  }, [query, tmdbApiKey, omdbApiKey]);
+    fetchMovies();
+  }, [query]);
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-      {results.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          movie={{
-            ...movie,
-            title: movie.title || movie.name,
-          }}
-        />
-      ))}
+    <div className="mb-12 w-[95vw] mx-auto">
+      <h2 className="text-2xl font-bold mb-6 px-2 text-white">
+        Search results for "{query}"
+      </h2>
+
+      <div className="flex flex-wrap gap-x-5 gap-y-12 p-2 justify-center">
+        {results.length > 0 ? (
+          results.map((movie) => <MovieCard key={movie.id} movie={movie} />)
+        ) : (
+          <p className="text-gray-400 text-lg mt-10">No results found</p>
+        )}
+      </div>
     </div>
   );
 };

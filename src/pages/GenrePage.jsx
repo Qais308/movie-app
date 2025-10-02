@@ -25,8 +25,8 @@ const GenrePage = () => {
   }, [genreId]);
 
   return (
-    <div className="px-4">
-      <h1 className="text-3xl font-bold mb-4">
+    <div className="md:px-4 px-1">
+      <h1 className="text-3xl font-bold mb-4 text-white">
         {genreName} Movies
       </h1>
       {movies.length > 0 ? (

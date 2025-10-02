@@ -7,7 +7,10 @@ const ReviewsSection = ({ reviews }) => {
 
   return (
     <div className="mt-8">
-      <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-white">User Reviews</h2>
+    <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-white">
+  User Reviews <span className="text-sm text-gray-400">(via TMDb)</span>
+</h2>
+
       <div className="flex flex-col gap-4">
         {reviews.map((review) => (
           <div
@@ -49,3 +52,5 @@ const ReviewsSection = ({ reviews }) => {
 };
 
 export default ReviewsSection;
+
+
