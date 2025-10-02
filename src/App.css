@@ -3,6 +3,7 @@ a {
   text-decoration: none !important;
   color: inherit !important;
 }
+
 /* Hide scrollbar for all elements */
 * {
   scrollbar-width: none; /* Firefox */

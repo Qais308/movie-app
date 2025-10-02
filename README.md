@@ -1,12 +1,56 @@
-# React + Vite
+# CineHub – Movie & TV Show Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=appveyor)](movie-app-rea-ct.netlify.app)
 
-Currently, two official plugins are available:
+CineHub is a modern, responsive web application that lets users explore, search, and compare movies and TV shows. It provides real-time data from TMDB and OMDb APIs and allows personalized watchlists and favorites. The app has a sleek, dark-themed design with an intuitive interface.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) htmlfor Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) htmlfor Fast Refresh
+> **Note:** Backend integration is planned for the future to support user authentication, watchlist persistence, and more.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) htmlfor inhtmlformation on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+
+- **Search Movies & TV Shows:** Find movies or TV shows with live suggestions.  
+- **Compare Movies/Shows:** Compare two movies or TV shows side-by-side including budget, revenue, IMDb rating, genres, overview, and watch providers.  
+- **Trending & Popular Content:** Browse trending and highly rated movies.  
+- **Genre Filtering:** Explore content by genres.  
+- **Watchlist & Favorites:** Save your favorite movies/shows for quick access (frontend storage for now).  
+- **Responsive Design:** Works seamlessly on mobile, tablet, and desktop screens.  
+- **Dark Theme:** Sleek black background across all pages.  
+- **Footer Attribution:** Displays all API & asset attributions.  
+
+---
+
+## Tech Stack
+
+- **Frontend:** React, React Router, Tailwind CSS, Framer Motion  
+- **APIs:**  
+  - [TMDB API](https://www.themoviedb.org/documentation/api) – Movie/TV show data  
+  - [OMDb API](https://www.omdbapi.com/) – IMDb ratings  
+- **State Management:** React Context API  
+- **Routing:** React Router DOM  
+- **Styling:** Tailwind CSS + custom components  
+- **Animations:** Framer Motion  
+- **Package Management:** npm / yarn  
+
+> Backend (Node.js/Express/MongoDB) planned for future integration to handle user authentication, watchlist persistence, and data management.
+
+---
+
+## Project Structure
+
+cinehub/
+├─ src/
+│ ├─ components/ # Header, Sidebar, Footer, MovieLogo
+│ ├─ pages/ # Home, Trending, Genre, Compare, Details, Watchlist, Favourites, Search
+│ ├─ context/ # MovieContext
+│ ├─ App.jsx
+│ └─ index.jsx
+├─ public/
+├─ package.json
+└─ tailwind.config.js
+
+---
+## Author
+
+**Md Qais** – [GitHub Profile](https://github.com/Qais308)

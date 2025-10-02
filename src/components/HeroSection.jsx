@@ -89,6 +89,7 @@
 //     </div>
 //   );
 // // }
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -141,7 +142,7 @@ export default function HeroSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % featuredMovies.length);
-    }, 6000); // change every 6 seconds
+    }, 4000); // change every 6 seconds
     return () => clearInterval(interval);
   }, []);
 

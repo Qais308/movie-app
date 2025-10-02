@@ -64,7 +64,6 @@ const WatchlistButton = ({ movie }) => {
   };
 
   return (
-    
     <button
   onClick={handleClick}
   className={`w-full transition relative font-semibold text-white
