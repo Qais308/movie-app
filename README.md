@@ -1,6 +1,13 @@
 # CineHub – Movie & TV Show Explorer
 
-[Click here to see the live app](https://movie-app-rea-ct.netlify.app/)
+<h2 class="text-center">🚀 Live Demo</h2>
+<p class="text-center">
+  <a href="https://movie-app-rea-ct.netlify.app/">
+    <img src="https://img.shields.io/badge/View%20App-Live-blue?style=for-the-badge&logo=react" alt="Live Demo"/>
+  </a>
+</p>
+
+
 
 CineHub is a modern, responsive web application that lets users explore, search, and compare movies and TV shows. It provides real-time data from TMDB and OMDb APIs and allows personalized watchlists and favorites. The app has a sleek, dark-themed design with an intuitive interface.  
 
