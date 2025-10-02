@@ -41,14 +41,27 @@ CineHub is a modern, responsive web application that lets users explore, search,
 
 client/
 ├─ src/
-│  ├─ components/      # Reusable UI components (Header, Sidebar, Footer, MovieLogo)
-│  ├─ pages/           # Page components (Home, Trending, Genre, Compare, Details, Watchlist, Favourites, Search)
-│  ├─ context/         # Global state management (MovieContext)
-│  ├─ App.jsx          # Main app component
-│  └─ index.jsx        # Entry point
-├─ public/             # Static assets
-├─ package.json        # Dependencies & scripts
-└─ tailwind.config.js  # TailwindCSS configuration
+│  ├─ components/
+│  │  ├─ Header.jsx
+│  │  ├─ Sidebar.jsx
+│  │  ├─ Footer.jsx
+│  │  └─ MovieLogo.jsx
+│  ├─ pages/
+│  │  ├─ Home.jsx
+│  │  ├─ Trending.jsx
+│  │  ├─ Genre.jsx
+│  │  ├─ Compare.jsx
+│  │  ├─ Details.jsx
+│  │  ├─ Watchlist.jsx
+│  │  ├─ Favourites.jsx
+│  │  └─ Search.jsx
+│  ├─ context/
+│  │  └─ MovieContext.jsx
+│  ├─ App.jsx
+│  └─ index.jsx
+├─ public/
+├─ package.json
+└─ tailwind.config.js
 
 
 ---
