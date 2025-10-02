@@ -38,7 +38,7 @@ CineHub is a modern, responsive web application that lets users explore, search,
 ---
 
 ## Project Structure
-
+```
 client/
 ├─ src/
 │  ├─ components/
@@ -62,7 +62,7 @@ client/
 ├─ public/
 ├─ package.json
 └─ tailwind.config.js
-
+```
 
 ---
 ## Author
