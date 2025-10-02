@@ -91,7 +91,7 @@ const MovieCard = ({ movie }) => {
   };
 
   return (
-    <div className="relative flex flex-col bg-gray-950 rounded-lg overflow-hidden text-white shadow-lg w-[40%] h-[55%] sm:w-[45%] md:w-[220px]">
+    <div className="relative flex flex-col bg-gray-950 rounded-lg overflow-hidden text-white shadow-lg w-[45%]  md:w-[220px]">
       {/* Poster */}
       <img
         src={
@@ -105,18 +105,19 @@ const MovieCard = ({ movie }) => {
       />
 
       {/* Title */}
-      <p className="text-center text-sm sm:text-base md:text-xl font-semibold mt-2 px-2 truncate">
+      <p className="text-center sm:text-lg md:text-xl font-semibold mt-2 px-2 truncate">
         {movie.title || movie.name}
       </p>
 
-      {/* Buttons */}
-      <div className="mt-auto">
-        <div className="flex justify-between px-2 py-1">
-          <FavouriteButton movie={movie} />
-          <DetailsButton movie={movie} onDetailsClick={handleDetailsClick} />
-        </div>
-        <WatchlistButton movie={movie} />
-      </div>
+     {/* Buttons */}
+<div className="mt-auto">
+  <div className="flex justify-between px-2 py-1 mb-2"> {/* Added mb-2 */}
+    <FavouriteButton movie={movie} />
+    <DetailsButton movie={movie} onDetailsClick={handleDetailsClick} />
+  </div>
+  <WatchlistButton movie={movie} />
+</div>
+
     </div>
   );
 };

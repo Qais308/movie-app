@@ -107,7 +107,7 @@ const MovieSection = ({ fetchUrl, movies: propMovies, title }) => {
   }, [fetchUrl, propMovies]);
 
   return (
-    <div className="mb-12 w-[95vw] mx-auto">
+    <div className="mb-12 w-full mx-auto">
       {title && <h2 className="text-xl sm:text-2xl font-bold mb-6 px-2">{title}</h2>}
 
       {/* Grid: 2 columns on small screens, 4+ on larger */}
