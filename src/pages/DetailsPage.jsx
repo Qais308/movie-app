@@ -20,14 +20,15 @@ const Details = () => {
   const [reviews, setReviews] = useState([]);
   const [reviewsPage, setReviewsPage] = useState(1);
   const [reviewsTotalPages, setReviewsTotalPages] = useState(1);
+  const [providers, setProviders] = useState([]); // ✅ Streaming providers
 
   // ✅ Fetch movie/TV details
   const fetchDetails = async () => {
     try {
       const endpoint =
         mediaType === "tv"
-          ? `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits`
-          : `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits`;
+          ? `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits,external_ids`
+          : `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_KEY}&append_to_response=videos,credits,external_ids`;
 
       const res = await fetch(endpoint);
       const data = await res.json();
@@ -40,11 +41,12 @@ const Details = () => {
         videos.find((vid) => vid.site === "YouTube");
       if (trailer) setTrailerKey(trailer.key);
 
-      // OMDb fetch (IMDb rating)
-      if (data.imdb_id) {
+      // ✅ IMDb rating for both movies & shows
+      const imdbId = data.imdb_id || data.external_ids?.imdb_id;
+      if (imdbId) {
         try {
           const omdbRes = await fetch(
-            `https://www.omdbapi.com/?i=${data.imdb_id}&apikey=${OMDB_KEY}`
+            `https://www.omdbapi.com/?i=${imdbId}&apikey=${OMDB_KEY}`
           );
           if (!omdbRes.ok) throw new Error("OMDb fetch failed");
           const omdbData = await omdbRes.json();
@@ -79,10 +81,26 @@ const Details = () => {
     }
   };
 
+  // ✅ Fetch streaming providers
+  const fetchProviders = async () => {
+    try {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/${mediaType}/${id}/watch/providers?api_key=${TMDB_KEY}`
+      );
+      const data = await res.json();
+      // Example: India (IN), fallback to US
+      const providersData = data.results.IN || data.results.US;
+      setProviders(providersData?.flatrate || []);
+    } catch (err) {
+      console.warn("Failed to fetch providers:", err);
+    }
+  };
+
   // ✅ Run on mount
   useEffect(() => {
     fetchDetails();
     fetchReviews(); // fetch first page
+    fetchProviders(); // fetch streaming platforms
   }, [id, mediaType]);
 
   if (!movie)
@@ -142,6 +160,27 @@ const Details = () => {
           )}
         </div>
       </div>
+
+      {/* ✅ Streaming Platforms */}
+      {providers.length > 0 && (
+        <div className="mt-6">
+          <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold mb-2 sm:mb-4">
+            Available On
+          </h2>
+          <div className="flex gap-3 overflow-x-auto pb-2">
+            {providers.map((p) => (
+              <div key={p.provider_id} className="text-center min-w-[60px]">
+                <img
+                  src={`https://image.tmdb.org/t/p/w92${p.logo_path}`}
+                  alt={p.provider_name}
+                  className="w-12 h-12 rounded-lg mx-auto"
+                />
+                <p className="text-xs mt-1">{p.provider_name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Cast */}
       <div className="mt-6">
