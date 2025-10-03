@@ -1,77 +1,89 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { preloadImages } from "../utils/preLoadImages";
 
-// Balanced "safe crop" featured movies (5 total)
+
 const featuredMovies = [
   {
   id: 693134, // Dune: Part Two (2024)
   title: "Dune: Part Two",
-  poster: "https://images.wallpapersden.com/image/download/4k-poster-of-dune-2-movie_bmdoaWeUmZqaraWkpJRobWllrWdma2U.jpg",
+  poster: "/posters/dune.jpg",
   overview:
     "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
 },
   {
     id: 414906, // The Batman (2022)
     title: "The Batman",
-    poster: "https://image.tmdb.org/t/p/original/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg",
+    poster: "/posters/batman.webp",
     overview:
       "Batman ventures into Gotham City's underworld when a sadistic killer leaves behind a trail of cryptic clues.",
   },
   {
     id: 157336, // Interstellar
     title: "Interstellar",
-    poster: "https://image.tmdb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+    poster: "/posters/intersteller.webp",
     overview:
       "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
   },
   {
   id: 299534, // Avengers: Endgame (2019)
   title: "Avengers: Endgame",
-  poster: "https://wallpaperbat.com/img/227405-avengers-endgame-2019-poster-wallpaper-avengers-movie-posters.jpg",
+  poster: "/posters/avengers.jpg",
   overview:
-    "After the devastating events of Infinity War, the remaining Avengers assemble once more to reverse Thanos' actions and restore balance to the universe, no matter what it takes.",
+    "After the devastating events of Infinity War, the remaining Avengers assemble once more to reverse Thanos.",
 },
    {
     id: 155, // The Dark Knight (2008)
     title: "The Dark Knight",
-    poster: "https://image.tmdb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    poster: "/posters/dark knight.webp",
     overview:
       "Batman faces the Joker, a criminal mastermind who plunges Gotham into chaos and pushes the hero to his limits.",
   },
  {
   id: 986056, // Thunderbolts (2025)
   title: "Thunderbolts",
-  poster: "https://4kwallpapers.com/images/walls/thumbs_3t/22251.jpg", // replace with your chosen poster
+  poster: "/posters/thunderbolts.jpg", // replace with your chosen poster
   overview:
     "A group of antiheroes and reformed villains are recruited by the government to undertake dangerous missions that no one else is willing to handle.",
 }
-
-  
 ];
-
-
 export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
 
+  // Preload images on mount
   useEffect(() => {
+    preloadImages(featuredMovies.map((m) => m.poster)).then(() => {
+      setLoaded(true);
+    });
+  }, []);
+
+  // Carousel interval
+  useEffect(() => {
+    if (!loaded) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % featuredMovies.length);
-    }, 4000); // change every 6 seconds
+    }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [loaded]);
+
+  if (!loaded) {
+    return (
+      <div className="h-[60vh] flex items-center justify-center text-white">
+        Loading hero section...
+      </div>
+    );
+  }
 
   const currentMovie = featuredMovies[currentIndex];
 
   return (
     <div
       className="relative h-[60vh] sm:h-[65vh] md:h-[75vh] flex items-end justify-start p-6 md:p-10 overflow-hidden cursor-pointer"
-      onClick={() => {
-        if (currentMovie?.id) navigate(`/details/${currentMovie.id}`);
-      }}
+      onClick={() => navigate(`/details/${currentMovie.id}`)}
     >
-      {/* Background Poster */}
       <motion.img
         key={currentMovie.id}
         src={currentMovie.poster}
@@ -81,11 +93,7 @@ export default function HeroSection() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
       />
-
-      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-      {/* Movie Info */}
       <div className="relative z-10 max-w-xl">
         <motion.h1
           className="text-4xl sm:text-5xl font-bold mb-2 text-white"
