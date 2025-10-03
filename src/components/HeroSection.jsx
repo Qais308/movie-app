@@ -5,6 +5,13 @@ import { motion } from "framer-motion";
 // Balanced "safe crop" featured movies (5 total)
 const featuredMovies = [
   {
+  id: 693134, // Dune: Part Two (2024)
+  title: "Dune: Part Two",
+  poster: "https://images.wallpapersden.com/image/download/4k-poster-of-dune-2-movie_bmdoaWeUmZqaraWkpJRobWllrWdma2U.jpg",
+  overview:
+    "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
+},
+  {
     id: 414906, // The Batman (2022)
     title: "The Batman",
     poster: "https://image.tmdb.org/t/p/original/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg",
@@ -18,6 +25,13 @@ const featuredMovies = [
     overview:
       "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
   },
+  {
+  id: 299534, // Avengers: Endgame (2019)
+  title: "Avengers: Endgame",
+  poster: "https://wallpaperbat.com/img/227405-avengers-endgame-2019-poster-wallpaper-avengers-movie-posters.jpg",
+  overview:
+    "After the devastating events of Infinity War, the remaining Avengers assemble once more to reverse Thanos' actions and restore balance to the universe, no matter what it takes.",
+},
    {
     id: 155, // The Dark Knight (2008)
     title: "The Dark Knight",
@@ -25,20 +39,14 @@ const featuredMovies = [
     overview:
       "Batman faces the Joker, a criminal mastermind who plunges Gotham into chaos and pushes the hero to his limits.",
   },
-    {
-    id: 475557, // Joker (2019)
-    title: "Joker",
-    poster: "https://image.tmdb.org/t/p/original/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
-    overview:
-      "A failed stand-up comedian’s descent into madness and nihilism inspires a violent countercultural revolution in Gotham City.",
-  },
-  {
-    id: 27205, // Inception
-    title: "Inception",
-    poster: "https://image.tmdb.org/t/p/original/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
-    overview:
-      "A skilled thief who steals corporate secrets through dream-sharing technology is given a chance at redemption if he can successfully perform inception.",
-  },
+ {
+  id: 986056, // Thunderbolts (2025)
+  title: "Thunderbolts",
+  poster: "https://4kwallpapers.com/images/walls/thumbs_3t/22251.jpg", // replace with your chosen poster
+  overview:
+    "A group of antiheroes and reformed villains are recruited by the government to undertake dangerous missions that no one else is willing to handle.",
+}
+
   
 ];
 

@@ -182,34 +182,55 @@ const Details = () => {
         </div>
       )}
 
-      {/* Cast */}
-      <div className="mt-6">
-        <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold mb-2 sm:mb-4">
-          Top Cast
-        </h2>
-        <div className="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto pb-2">
-          {movie.credits?.cast
-            ?.filter((actor) => actor.profile_path)
-            .slice(0, 10)
-            .map((actor) => (
-              <div
-                key={actor.cast_id}
-                className="text-center min-w-[60px] sm:min-w-[80px] md:min-w-[100px]"
-              >
-                <img
-                  src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
-                  alt={actor.name}
-                  className="w-22 h-22 sm:w-26 sm:h-32 md:w-30 md:h-40 object-cover rounded-lg mx-auto cursor-pointer"
-                  onClick={() => navigate(`/person/${actor.id}`)}
-                />
-                <p className="text-[9px] sm:text-xs md:text-sm mt-1">{actor.name}</p>
-                <p className="text-[8px] sm:text-[10px] md:text-xs text-gray-400">
-                  as {actor.character}
-                </p>
-              </div>
-            )) || <p className="text-gray-400">No cast info available.</p>}
-        </div>
-      </div>
+ {/* Cast & Crew */}
+<div className="mt-6">
+  <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold mb-2 sm:mb-4">
+    Cast & Crew
+  </h2>
+  <div className="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto pb-2">
+    {movie.credits ? (() => {
+      // Create a map to avoid repeating posters
+      const peopleMap = new Map();
+
+      // Add cast
+      movie.credits.cast.forEach((c) => {
+        if (!c.profile_path) return;
+        if (!peopleMap.has(c.id)) peopleMap.set(c.id, { ...c, jobs: [c.character] });
+        else peopleMap.get(c.id).jobs.push(c.character);
+      });
+
+      // Add crew
+      movie.credits.crew.forEach((c) => {
+        if (!c.profile_path) return;
+        if (!peopleMap.has(c.id)) peopleMap.set(c.id, { ...c, jobs: [c.job] });
+        else peopleMap.get(c.id).jobs.push(c.job);
+      });
+
+      return Array.from(peopleMap.values())
+        .slice(0, 20) // Top 20 people
+        .map((person) => (
+          <div
+            key={person.id}
+            className="text-center min-w-[60px] sm:min-w-[80px] md:min-w-[100px]"
+          >
+            <img
+              src={`https://image.tmdb.org/t/p/w200${person.profile_path}`}
+              alt={person.name}
+              className="w-22 h-22 sm:w-26 sm:h-32 md:w-30 md:h-40 object-cover rounded-lg mx-auto cursor-pointer"
+              onClick={() => navigate(`/person/${person.id}`)}
+            />
+            <p className="text-[9px] sm:text-xs md:text-sm mt-1">{person.name}</p>
+            <p className="text-[8px] sm:text-[10px] md:text-xs text-gray-400">
+              {person.jobs.join(", ")}
+            </p>
+          </div>
+        ));
+    })() : (
+      <p className="text-gray-400">No cast & crew info available.</p>
+    )}
+  </div>
+</div>
+
 
       {/* Trailer */}
       <div className="mt-6">

@@ -7,9 +7,9 @@ import Sidebar from "./components/Sidebar";
 import HomePage from "./pages/Home";
 import Favourites from "./pages/favouritesPage";
 import WatchlistPage from "./pages/WatchlistPage";
-import TrendingIndianPage from "./pages/TrendingIndianPage";
+import PopularShows from "./pages/PopularShowsPage"
 import Footer from "./components/Footer";
-import TrendingPage from "./pages/TrendingPage";
+import PopularMovies from "./pages/PopularMoviesPage";
 import GenrePage from "./pages/GenrePage";
 import { MovieProvider } from "./context/MovieContext";
 import Details from "./pages/DetailsPage";
@@ -38,8 +38,8 @@ function App() {
                 path="/genre/:genreId/:genreName"
                 element={<GenrePage />}
               />
-              <Route path="/trending" element={<TrendingPage />} />
-              <Route path="/indian" element={<TrendingIndianPage />} />
+              <Route path="/movies" element={<PopularMovies />} />
+              <Route path="/shows" element={<PopularShows />} />
               <Route path="/favourites" element={<Favourites />} />
               <Route path="/watchlist" element={<WatchlistPage />} />
               <Route path="/details/:id" element={<Details />} />

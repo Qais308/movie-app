@@ -1,4 +1,3 @@
-import React from "react";
 
 const MovieLogo = ({ size = "md", fullText = false, className = "" }) => {
   const sizes = {
@@ -37,7 +36,7 @@ const MovieLogo = ({ size = "md", fullText = false, className = "" }) => {
       <span
         className={`font-extrabold ${textSize} tracking-tight bg-gradient-to-r from-blue-500 to-red-400 bg-clip-text text-transparent`}
       >
-        {fullText ? "CineHub" : "CH"}
+        {fullText ? "MovieSync" : "MS"}
       </span>
     </div>
   );

@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
 import HeroSection from "../components/HeroSection";
 import FeatureSection from "../components/FeatureSection";
 
@@ -19,13 +18,13 @@ const genres = [
   },
   {
     id: 16,
-    name: "animation",
+    name: "Animation",
     image:
       "https://images.wallpapersden.com/image/download/demon-slayer_a2xoZWuUmZqaraWkpJRnamtlrWZsZWU.jpg",
   },
   {
     id: 27, 
-    name: "horror",
+    name: "Horror",
     image: "https://s.studiobinder.com/wp-content/uploads/2022/12/Horror-Movie-Tropes-Featured.jpg", 
   },
   {
@@ -36,7 +35,7 @@ const genres = [
   },
   {
     id: 36,
-    name: "historic",
+    name: "Historic",
     image:
       "https://images.fanpop.com/images/image_uploads/Troy-movies-72646_1024_768.jpg",
   },
@@ -44,14 +43,14 @@ const genres = [
 
 const categories = [
   {
-    title: "Trending",
-    link: "/trending",
-    img: "https://wallpaperaccess.com/full/4839516.jpg",
+    title: "Popular movies",
+    link: "/movies",
+    img: "https://images.filmibeat.com/img/popcorn/movie_lists/upcoming-bollywood-action-movies-of-2024-20240124135118-79.jpg",
   },
   {
-    title: "Trending Indian",
-    link: "/indian",
-    img: "https://images.filmibeat.com/img/popcorn/movie_lists/upcoming-bollywood-action-movies-of-2024-20240124135118-79.jpg",
+    title: "Popular Shows",
+    link: "/shows",
+    img: "https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/11/squid-game-season-2-players.jpg",
   },
 ];
 
@@ -72,8 +71,8 @@ export default function HomePage() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <h1 className="text-3xl font-bold mb-6">Browse Categories</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h1 className="text-3xl font-bold">Browse Categories</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 md:mt-3">
           {categories.map((cat, i) => (
             <motion.div
               key={i}
@@ -87,7 +86,7 @@ export default function HomePage() {
                 <img
                   src={cat.img}
                   alt={cat.title}
-                  className="w-full h-65 sm:h-70 xs:h-48 object-cover rounded-xl"
+                  className="w-full h-55 sm:h-80 xs:h-48 object-cover rounded-xl"
                 />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4">
                   <h2 className="text-xl sm:text-lg xs:text-base font-bold">
@@ -101,8 +100,8 @@ export default function HomePage() {
 
         {/* Genres */}
         <div>
-          <h2 className="text-2xl font-bold mb-6">Genres</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          <h2 className="text-3xl font-bold">Genres</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-2 md:mt-3">
             {genres.map((g, i) => (
               <motion.div
                 key={g.id}
