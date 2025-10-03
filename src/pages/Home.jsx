@@ -15,19 +15,18 @@ const genres = [
     id: 35,
     name: "Comedy",
     image:
-      "https://wallpaperaccess.com/full/769774.jpg",
+      "https://www.typesof.com/wp-content/uploads/2024/01/types-of-comedy-1024x701.jpg",
   },
   {
-    id: 18,
-    name: "Drama",
+    id: 16,
+    name: "animation",
     image:
-      "https://wallpapercave.com/wp/wp5956390.jpg",
+      "https://images.wallpapersden.com/image/download/demon-slayer_a2xoZWuUmZqaraWkpJRnamtlrWZsZWU.jpg",
   },
   {
-    id: 10749,
-    name: "Romance",
-    image:
-      "https://images.hdqwalls.com/download/titanic-movie-full-hd-3840x2160.jpg",
+    id: 27, 
+    name: "horror",
+    image: "https://s.studiobinder.com/wp-content/uploads/2022/12/Horror-Movie-Tropes-Featured.jpg", 
   },
   {
     id: 878,
@@ -36,10 +35,10 @@ const genres = [
       "https://wallpaperaccess.com/full/1561771.jpg",
   },
   {
-    id: 10751,
-    name: "Family",
+    id: 36,
+    name: "historic",
     image:
-      "https://www.developgoodhabits.com/wp-content/uploads/2021/02/family_reunion.jpg",
+      "https://images.fanpop.com/images/image_uploads/Troy-movies-72646_1024_768.jpg",
   },
 ];
 
