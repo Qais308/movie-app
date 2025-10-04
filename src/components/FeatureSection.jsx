@@ -10,7 +10,7 @@ export default function FeatureSection() {
   return (
     <div className="relative w-full py-16 overflow-hidden bg-gradient-to-t from-black via-gray-900 to-black">
       <div className="relative z-10 max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center md:items-center justify-center gap-6">
-        {/* Full MovieSync Logo (always shows full text) */}
+       
         <motion.div
           className="flex-shrink-0"
           initial={{ opacity: 0, x: -50 }}
@@ -20,7 +20,6 @@ export default function FeatureSection() {
           <MovieLogo size="lg" fullText={true} />
         </motion.div>
 
-        {/* Feature Text */}
         <motion.div
           className="text-center md:text-left"
           initial={{ opacity: 0, x: 50 }}
