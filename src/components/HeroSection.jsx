@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { preloadImages } from "../utils/preLoadImages";
+import { preloadImages } from "../utils/preloadImages";
 
 
 const featuredMovies = [
@@ -58,7 +58,7 @@ export default function HeroSection() {
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % featuredMovies.length);
-    }, 6000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
