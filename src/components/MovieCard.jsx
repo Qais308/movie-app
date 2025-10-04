@@ -13,7 +13,7 @@ const MovieCard = ({ movie }) => {
   };
 
   return (
-    <div className="relative flex flex-col bg-gray-950 rounded-lg overflow-hidden text-white shadow-lg w-[45%]  md:w-[220px]">
+    <div className="relative flex flex-col bg-[#0B0F2B] rounded-lg overflow-hidden text-white w-[45%] md:w-[220px]">
       {/* Poster */}
       <img
         src={
@@ -27,7 +27,7 @@ const MovieCard = ({ movie }) => {
       />
 
       {/* Title */}
-      <p className="text-center sm:text-lg md:text-xl font-semibold mt-2 px-2 truncate">
+      <p className="text-center sm:text-lg md:text-xl mb-0 font-semibold md:mt-2 px-2 truncate">
         {movie.title || movie.name}
       </p>
 
