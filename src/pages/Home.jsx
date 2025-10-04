@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import HeroSection from "../components/HeroSection";
 import FeatureSection from "../components/FeatureSection";
+import ScrollCard from "../components/ScrollCard";
 
 const genres = [
   {
@@ -53,7 +54,7 @@ const categories = [
     img: "https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/11/squid-game-season-2-players.jpg",
   },
 ];
-
+ 
 export default function HomePage() {
   const navigate = useNavigate();
 
@@ -63,6 +64,8 @@ export default function HomePage() {
       <HeroSection />
 
     <FeatureSection />
+      
+      <ScrollCard />
 
       {/* Browse Categories */}
       <motion.div

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { preloadImages } from "../utils/preLoadImages";
 
 
@@ -28,7 +28,7 @@ const featuredMovies = [
   },
   {
   id: 299534, // Avengers: Endgame (2019)
-  title: "Avengers: Endgame",
+  title: "Avengers Endgame",
   poster: "/posters/avengers.jpg",
   overview:
     "After the devastating events of Infinity War, the remaining Avengers assemble once more to reverse Thanos.",
@@ -48,34 +48,20 @@ const featuredMovies = [
     "A group of antiheroes and reformed villains are recruited by the government to undertake dangerous missions that no one else is willing to handle.",
 }
 ];
+
 export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
 
-  // Preload images on mount
   useEffect(() => {
-    preloadImages(featuredMovies.map((m) => m.poster)).then(() => {
-      setLoaded(true);
-    });
-  }, []);
+    preloadImages(featuredMovies.map((m) => m.poster));
 
-  // Carousel interval
-  useEffect(() => {
-    if (!loaded) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % featuredMovies.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [loaded]);
+    }, 6000);
 
-  if (!loaded) {
-    return (
-      <div className="h-[60vh] flex items-center justify-center text-white">
-        Loading hero section...
-      </div>
-    );
-  }
+    return () => clearInterval(interval);
+  }, []);
 
   const currentMovie = featuredMovies[currentIndex];
 
@@ -84,33 +70,51 @@ export default function HeroSection() {
       className="relative h-[60vh] sm:h-[65vh] md:h-[75vh] flex items-end justify-start p-6 md:p-10 overflow-hidden cursor-pointer"
       onClick={() => navigate(`/details/${currentMovie.id}`)}
     >
-      <motion.img
-        key={currentMovie.id}
-        src={currentMovie.poster}
-        alt={currentMovie.title}
-        className="absolute top-0 left-0 w-full h-full object-cover object-center opacity-70"
-        initial={{ scale: 1.2, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-      />
+      {/* Poster crossfade */}
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={currentMovie.id}
+          src={currentMovie.poster}
+          alt={currentMovie.title}
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.5 }}
+        />
+      </AnimatePresence>
+
+      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+      {/* Info animation */}
       <div className="relative z-10 max-w-xl">
-        <motion.h1
-          className="text-4xl sm:text-5xl font-bold mb-2 text-white"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          {currentMovie.title}
-        </motion.h1>
-        <motion.p
-          className="text-lg sm:text-base text-gray-200"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-        >
-          {currentMovie.overview}
-        </motion.p>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentMovie.id + "-text"}
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -50, opacity: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
+            <motion.h1
+              className="text-4xl sm:text-5xl font-bold mb-2 text-white"
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              {currentMovie.title}
+            </motion.h1>
+            <motion.p
+              className="text-lg sm:text-base text-gray-200"
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+            >
+              {currentMovie.overview}
+            </motion.p>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
