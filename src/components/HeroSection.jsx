@@ -4,13 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { preloadImages } from "../utils/preloadImages";
 
 const featuredMovies = [
-  {
-    id: 693134,
-    title: "Dune: Part Two",
-    poster: "/posters/dune.jpg",
-    overview:
-      "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
-  },
+ 
   {
     id: 414906,
     title: "The Batman",
@@ -18,13 +12,21 @@ const featuredMovies = [
     overview:
       "Batman ventures into Gotham City's underworld when a sadistic killer leaves behind a trail of cryptic clues.",
   },
-  {
+   {
+    id: 693134,
+    title: "Dune: Part Two",
+    poster: "/posters/dune.jpg",
+    overview:
+      "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
+  },
+   {
     id: 157336,
     title: "Interstellar",
     poster: "/posters/intersteller.webp",
     overview:
       "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
   },
+   
   {
     id: 299534,
     title: "Avengers Endgame",
@@ -39,12 +41,13 @@ const featuredMovies = [
     overview:
       "Batman faces the Joker, a criminal mastermind who plunges Gotham into chaos and pushes the hero to his limits.",
   },
+ 
   {
-    id: 986056,
-    title: "Thunderbolts",
-    poster: "/posters/thunderbolts.jpg",
+    id: 693134,
+    title: "Dune: Part Two",
+    poster: "/posters/dune.jpg",
     overview:
-      "A group of antiheroes and reformed villains are recruited by the government to undertake dangerous missions that no one else is willing to handle.",
+      "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
   },
 ];
 

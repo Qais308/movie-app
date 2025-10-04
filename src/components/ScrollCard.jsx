@@ -35,7 +35,7 @@ const ScrollCard = () => {
 
   {/* Vignette Overlay */}
   <div className="pointer-events-none absolute inset-0 z-10 
-                  bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.1)_40%,rgba(0,0,0,0.9)_100%)]" />
+                  bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.2)_40%,rgba(0,0,0,0.9)_100%)]" />
 </div>
 
   );
