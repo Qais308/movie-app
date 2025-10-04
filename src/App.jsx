@@ -18,6 +18,8 @@ import useDisableZoom from "./components/DisableZoom";
 import Compare from "./pages/Compare";
 import SearchPage from "./pages/SearchPage";
 import ScrollToTop from "./components/ScrollToTop";
+import About from "./pages/AboutPage";
+
 
 function App() {
   useDisableZoom();
@@ -46,6 +48,8 @@ function App() {
               <Route path="/person/:id" element={<PersonDetails />} />
               <Route path="/compare" element={<Compare />} />
               <Route path="/search" element={<SearchPage />} />
+              <Route path="/about" element={<About />} />
+      
 
               {/* 404 fallback */}
               <Route

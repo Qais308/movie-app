@@ -12,35 +12,35 @@ const featuredMovies = [
       "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
   },
   {
-    id: 414906, 
+    id: 414906,
     title: "The Batman",
     poster: "/posters/batman.webp",
     overview:
       "Batman ventures into Gotham City's underworld when a sadistic killer leaves behind a trail of cryptic clues.",
   },
   {
-    id: 157336, 
+    id: 157336,
     title: "Interstellar",
     poster: "/posters/intersteller.webp",
     overview:
       "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
   },
   {
-    id: 299534, 
+    id: 299534,
     title: "Avengers Endgame",
     poster: "/posters/avengers.jpg",
     overview:
       "After the devastating events of Infinity War, the remaining Avengers assemble once more to reverse Thanos.",
   },
   {
-    id: 155, 
+    id: 155,
     title: "The Dark Knight",
     poster: "/posters/dark knight.webp",
     overview:
       "Batman faces the Joker, a criminal mastermind who plunges Gotham into chaos and pushes the hero to his limits.",
   },
   {
-    id: 986056, 
+    id: 986056,
     title: "Thunderbolts",
     poster: "/posters/thunderbolts.jpg",
     overview:
@@ -49,16 +49,22 @@ const featuredMovies = [
 ];
 
 export default function HeroSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(() => {
+    return Number(localStorage.getItem("heroIndex")) || 0;
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
     // Preload all posters
     preloadImages(featuredMovies.map((m) => m.poster));
 
-    // Change movie every 4 seconds
+    // Change movie every 5 seconds
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % featuredMovies.length);
+      setCurrentIndex((prev) => {
+        const next = (prev + 1) % featuredMovies.length;
+        localStorage.setItem("heroIndex", next); // persist current index
+        return next;
+      });
     }, 5000);
 
     return () => clearInterval(interval);
@@ -68,10 +74,10 @@ export default function HeroSection() {
 
   return (
     <div
-      className="relative h-[60vh] sm:h-[65vh] md:h-[75vh] flex items-end justify-start p-6 md:p-10 overflow-hidden cursor-pointer"
+      className="relative h-[60vh] sm:h-[65vh] md:h-[75vh] flex items-end justify-start p-6 md:p-10 overflow-hidden cursor-pointer bg-black"
       onClick={() => navigate(`/details/${currentMovie.id}`)}
     >
-     
+      {/* Poster crossfade */}
       <AnimatePresence mode="wait">
         <motion.img
           key={currentMovie.id}
@@ -81,13 +87,14 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 0.8 }}
         />
       </AnimatePresence>
 
-
+      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
+      {/* Info animation */}
       <div className="relative z-10 max-w-xl">
         <AnimatePresence mode="wait">
           <motion.div
