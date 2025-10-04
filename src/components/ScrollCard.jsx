@@ -24,6 +24,9 @@ const ScrollCard = () => {
 
   return (
    <div className="relative w-[85vw] sm:w-[75vw] md:w-[60vw] mx-auto overflow-hidden">
+    <h2 className="relative z-20 text-3xl sm:text-4xl font-bold text-white mb-6 text-left">
+    Spotlight
+  </h2>
   {/* Your cards */}
   <div className="flex flex-col gap-10 relative z-0">
     <ScrollCardItem images={upperCard} from={0} to={"-100%"} />
@@ -35,9 +38,8 @@ const ScrollCard = () => {
                   bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.1)_40%,rgba(0,0,0,0.9)_100%)]" />
 </div>
 
-
-    
   );
 };
 
 export default ScrollCard;
+

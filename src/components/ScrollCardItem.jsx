@@ -56,3 +56,4 @@ const ScrollCardItem = ({ images, from, to }) => {
 };
 
 export default ScrollCardItem;
+
