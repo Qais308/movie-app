@@ -12,13 +12,14 @@ const featuredMovies = [
     overview:
       "Batman ventures into Gotham City's underworld when a sadistic killer leaves behind a trail of cryptic clues.",
   },
-   {
-    id: 693134,
-    title: "Dune: Part Two",
-    poster: "/posters/dune.jpg",
-    overview:
-      "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
-  },
+  {
+  id: 986056,
+  title: "Thunderbolts",
+  poster: "/posters/thunderbolts.jpg",
+  overview:
+    "A group of antiheroes and reformed villains are recruited by the government to undertake dangerous missions that no one else is willing to handle.",
+},
+  
    {
     id: 157336,
     title: "Interstellar",
@@ -49,6 +50,7 @@ const featuredMovies = [
     overview:
       "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
   },
+
 ];
 
 export default function HeroSection() {
