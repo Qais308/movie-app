@@ -14,6 +14,10 @@ export const MovieProvider = ({ children }) => {
     return stored ? JSON.parse(stored) : [];
   });
 
+const [heroIndex, setHeroIndex] = useState(0);
+
+
+
   // Save watchlist to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
@@ -63,6 +67,8 @@ export const MovieProvider = ({ children }) => {
         removeFromWatchlist,
         addToFavourites,
         removeFromFavourites,
+        heroIndex,
+        setHeroIndex,
       }}
     >
       {children}
