@@ -1,6 +1,6 @@
+
 import React, { useEffect } from "react";
 import ScrollCardItem from "../components/ScrollCardItem";
-import { preloadImages } from "../utils/preLoadImages";
 
 const ScrollCard = () => {
   const upperCard = [
@@ -17,6 +17,14 @@ const ScrollCard = () => {
     { id: 603692, image: "/posters/johnwick4.webp" },
   ];
 
+  // ✅ Inline preload function
+  const preloadImages = (urls) => {
+    urls.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+  };
+
   useEffect(() => {
     const urls = [...upperCard, ...lowerCard].map((m) => m.image);
     preloadImages(urls);
@@ -25,7 +33,7 @@ const ScrollCard = () => {
   return (
     <div className="relative w-[85vw] sm:w-[75vw] md:w-[60vw] mx-auto overflow-hidden">
       <h2 className="relative z-20 text-3xl sm:text-4xl font-bold text-white mb-6 text-left">
-       Blockbuster Hits
+        Blockbuster Hits
       </h2>
 
       <div className="flex flex-col gap-10 relative z-0">
