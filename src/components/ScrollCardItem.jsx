@@ -1,13 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
+const preloadImages = (urls) => {
+  return Promise.all(
+    urls.map(
+      (url) =>
+        new Promise((resolve) => {
+          const img = new Image();
+          img.src = url;
+          img.onload = resolve;
+          img.onerror = resolve;
+        })
+    )
+  );
+};
+
 const ScrollCardItem = ({ images = [], from, to }) => {
   const navigate = useNavigate();
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+   
+    const urls = images.map((item) => item.image);
+    preloadImages(urls).then(() => setLoaded(true));
+  }, [images]);
 
   const handleClick = (id) => {
-    if (id) navigate(`/details/${id}`); 
+    if (id) navigate(`/details/${id}`);
   };
+
+  if (!loaded) {
+    
+    return (
+      <div className="flex justify-center items-center h-64 text-gray-400 text-sm">
+        Loading posters...
+      </div>
+    );
+  }
 
   return (
     <div className="flex overflow-hidden MyGradient">

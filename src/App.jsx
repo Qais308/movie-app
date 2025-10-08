@@ -21,6 +21,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import About from "./pages/AboutPage";
 
 
+
 function App() {
   useDisableZoom();
   const [isOpen, setIsOpen] = useState(false);
