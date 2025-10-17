@@ -24,15 +24,15 @@ const genres = [
       "https://images.wallpapersden.com/image/download/demon-slayer_a2xoZWuUmZqaraWkpJRnamtlrWZsZWU.jpg",
   },
   {
-    id: 27, 
+    id: 27,
     name: "Horror",
-    image: "https://s.studiobinder.com/wp-content/uploads/2022/12/Horror-Movie-Tropes-Featured.jpg", 
+    image:
+      "https://s.studiobinder.com/wp-content/uploads/2022/12/Horror-Movie-Tropes-Featured.jpg",
   },
   {
     id: 878,
     name: "Sci-Fi",
-    image:
-      "https://wallpaperaccess.com/full/1561771.jpg",
+    image: "https://wallpaperaccess.com/full/1561771.jpg",
   },
   {
     id: 36,
@@ -54,7 +54,7 @@ const categories = [
     img: "https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/11/squid-game-season-2-players.jpg",
   },
 ];
- 
+
 export default function HomePage() {
   const navigate = useNavigate();
 
@@ -63,8 +63,8 @@ export default function HomePage() {
       {/* Hero Section */}
       <HeroSection />
 
-    <FeatureSection />
-      
+      <FeatureSection />
+
       <ScrollCard />
 
       {/* Browse Categories */}
@@ -92,7 +92,7 @@ export default function HomePage() {
                   className="w-full h-55 sm:h-80 xs:h-48 object-cover rounded-xl"
                 />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4">
-                  <h2 className="text-xl sm:text-lg xs:text-base font-bold">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
                     {cat.title}
                   </h2>
                 </div>
@@ -122,7 +122,7 @@ export default function HomePage() {
                       className="w-full h-full object-cover rounded-xl"
                     />
                     <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-2">
-                      <h3 className="text-white font-semibold text-sm sm:text-base">
+                      <h3 className="text-white font-bold text-base sm:text-lg md:text-2xl">
                         {g.name}
                       </h3>
                     </div>
