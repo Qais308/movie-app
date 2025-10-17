@@ -4,16 +4,16 @@ import ScrollCardItem from "../components/ScrollCardItem";
 
 const ScrollCard = () => {
   const upperCard = [
-    { id: "tt15354916", image: "/posters/jawan.avif" },
-    { id: "tt26548265", image: "/posters/maharaja.jpg" },
-    { id: "tt9179430", image: "/posters/vikram.jpg" },
-    { id: "tt8178634", image: "/posters/rrr.jpeg" },
+    { id: "tt15354916", image: "/posters/jawan.webp" },
+    { id: "tt26548265", image: "/posters/maharaja.webp" },
+    { id: "tt9179430", image: "/posters/vikram.webp" },
+    { id: "tt8178634", image: "/posters/rrr.webp" },
   ];
 
   const lowerCard = [
-    { id: 872585, image: "/posters/oppenheimer.avif" },
-    { id: 157336, image: "/posters/interstellar.jpg" },
-    { id: 27205, image: "/posters/inception.jpg" },
+    { id: 872585, image: "/posters/oppenheimer.webp" },
+    { id: 157336, image: "/posters/interstellar.webp" },
+    { id: 27205, image: "/posters/inception.webp" },
     { id: 603692, image: "/posters/johnwick4.webp" },
   ];
 

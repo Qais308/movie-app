@@ -7,7 +7,7 @@ const featuredMovies = [
    {
     id: 299534,
     title: "Avengers Endgame",
-    poster: "/posters/avengers.jpg",
+    poster: "/posters/avengers.webp",
     overview:
       "After the devastating events of Infinity War, the remaining Avengers assemble once more to reverse Thanos.",
   },
@@ -21,7 +21,7 @@ const featuredMovies = [
   {
     id: 986056,
     title: "Thunderbolts",
-    poster: "/posters/thunderbolts.jpg",
+    poster: "/posters/thunderbolts.webp",
     overview:
       "A group of antiheroes and reformed villains are recruited by the government to undertake dangerous missions that no one else is willing to handle.",
   },
@@ -29,14 +29,14 @@ const featuredMovies = [
     id: 76600,
     title: "Avatar: The Way of Water",
     poster:
-      "/posters/avatar.jpg",
+      "/posters/avatar.webp",
     overview:
       "Set more than a decade after the events of the first film, Jake Sully and Neytiri have formed a family and are living peacefully in the forests of Pandora.",
   },
   {
     id: 693134,
     title: "Dune: Part Two",
-    poster: "/posters/dune-2.jpg",
+    poster: "/posters/dune-2.webp",
     overview:
       "The story continues as Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
   },
