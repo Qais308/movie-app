@@ -21,7 +21,7 @@ const WatchlistButton = ({ movie }) => {
     <button
   onClick={handleClick}
   className={`w-full transition relative font-semibold text-white
-    py-1 px-2 text-[12px] sm:text-base sm:py-2 sm:px-3
+    py-1 px-2 text-[14px] sm:text-base sm:py-2 sm:px-3 
     ${inWatchlist ? "bg-green-600 hover:bg-green-700" : "bg-yellow-500 hover:bg-yellow-600"}
   `}
 >

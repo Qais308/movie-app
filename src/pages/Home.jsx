@@ -92,7 +92,7 @@ export default function HomePage() {
                   className="w-full h-55 sm:h-80 xs:h-48 object-cover rounded-xl"
                 />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4">
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
                     {cat.title}
                   </h2>
                 </div>
@@ -122,7 +122,7 @@ export default function HomePage() {
                       className="w-full h-full object-cover rounded-xl"
                     />
                     <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-2">
-                      <h3 className="text-white font-bold text-base sm:text-lg md:text-2xl">
+                      <h3 className="text-white font-semibold text-lg sm:text-xl md:text-2xl">
                         {g.name}
                       </h3>
                     </div>
