@@ -19,12 +19,14 @@ const FavouriteButton = ({ movie }) => {
       onClick={handleClick}
       className="p-1 sm:p-2 rounded-full transition relative flex items-center justify-center"
     >
-      <div
-  className={`absolute -top-6 left-0 right-0 mx-auto text-xs px-2 py-1 rounded  text-white shadow-lg transition-all duration-500
-  max-w-[120px] text-center
-  ${showFavMsg ? "opacity-100 -translate-y-2" : "opacity-0 translate-y-0"}`}
->
-  {inFavourites ? "Added to Favourites" : "Removed from Favourites"}
+   <div className="absolute -top-8 left-1/2 -translate-x-1/2">
+  <div
+    className={`bg-black text-white text-xs px-2 py-1 rounded-lg shadow-lg transform transition-all duration-500 ${
+      showFavMsg ? "opacity-100 -translate-y-2" : "opacity-0 translate-y-0"
+    } whitespace-pre-line text-center`}
+  >
+    {inFavourites ? "Added to\nFavorite" : "Removed from\nFavorite"}
+  </div>
 </div>
 
 

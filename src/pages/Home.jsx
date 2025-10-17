@@ -9,36 +9,36 @@ const genres = [
     id: 28,
     name: "Action",
     image:
-      "https://images.filmibeat.com/wallpapers/desktop/2023/12/salaar-part-1-ceasefire_4.jpg",
+      "/posters/action.webp",
   },
   {
     id: 35,
     name: "Comedy",
     image:
-      "https://www.typesof.com/wp-content/uploads/2024/01/types-of-comedy-1024x701.jpg",
+      "/posters/comedy.webp",
   },
   {
     id: 16,
     name: "Animation",
     image:
-      "https://images.wallpapersden.com/image/download/demon-slayer_a2xoZWuUmZqaraWkpJRnamtlrWZsZWU.jpg",
+      "posters/animation.webp",
   },
   {
     id: 27,
     name: "Horror",
     image:
-      "https://s.studiobinder.com/wp-content/uploads/2022/12/Horror-Movie-Tropes-Featured.jpg",
+      "/posters/horror.webp",
   },
   {
     id: 878,
     name: "Sci-Fi",
-    image: "https://wallpaperaccess.com/full/1561771.jpg",
+    image: "/posters/sci-fi.webp",
   },
   {
     id: 36,
     name: "Historic",
     image:
-      "https://images.fanpop.com/images/image_uploads/Troy-movies-72646_1024_768.jpg",
+      "/posters/historic.webp",
   },
 ];
 
