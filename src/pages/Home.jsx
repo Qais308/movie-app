@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import HeroSection from "../components/HeroSection";
-import FeatureSection from "../components/FeatureSection";
 import ScrollCard from "../components/ScrollCard";
 
 const genres = [
@@ -62,8 +61,6 @@ export default function HomePage() {
     <div className="bg-black text-white font-sans">
       {/* Hero Section */}
       <HeroSection />
-
-      <FeatureSection />
 
       <ScrollCard />
 
