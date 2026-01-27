@@ -52,7 +52,7 @@ export default function PopularOTTShowsPage() {
       } catch (err) {
         console.error("Error fetching OTT shows:", err);
       } finally {
-        setLoading(false); // ✅ mark loading complete
+        setLoading(false); 
       }
     };
 

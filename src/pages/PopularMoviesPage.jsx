@@ -1,4 +1,3 @@
-// src/pages/PopularMoviesPage.jsx
 import { useEffect, useState } from "react";
 import MovieSection from "../components/MovieSection";
 
@@ -25,20 +24,20 @@ const interleaveArrays = (arr1, arr2) => {
 
 const PopularMoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true); // ✅ added loading state
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const sessionKey = "popularMovies";
     const storedMovies = sessionStorage.getItem(sessionKey);
     if (storedMovies) {
       setMovies(JSON.parse(storedMovies));
-      setLoading(false); // ✅ mark loading complete
+      setLoading(false);
       return;
     }
 
     const fetchPopularMovies = async () => {
       try {
-        // Global popular movies
+        
         const globalRes = await fetch(
           `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&page=1`
         );
@@ -48,7 +47,7 @@ const PopularMoviesPage = () => {
         );
         globalMovies = shuffleArray(globalMovies);
 
-        // Indian popular movies
+    
         const indiaRes = await fetch(
           `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=hi&sort_by=popularity.desc&page=1`
         );
@@ -58,23 +57,22 @@ const PopularMoviesPage = () => {
         );
         indiaMovies = shuffleArray(indiaMovies);
 
-        // Interleave Indian + Global
+        
         let combined = interleaveArrays(indiaMovies, globalMovies);
 
-        // Remove duplicates
+    
         const combinedMap = new Map();
         combined.forEach((movie) => {
           if (!combinedMap.has(movie.id)) combinedMap.set(movie.id, movie);
         });
         combined = Array.from(combinedMap.values()).slice(0, 40);
 
-        // Save to state and sessionStorage
         setMovies(combined);
         sessionStorage.setItem(sessionKey, JSON.stringify(combined));
       } catch (err) {
         console.error("Error fetching popular movies:", err);
       } finally {
-        setLoading(false); // ✅ always mark loading complete
+        setLoading(false);
       }
     };
 
@@ -86,7 +84,7 @@ const PopularMoviesPage = () => {
       <h1 className="text-3xl text-white font-bold mb-4">Popular Movies</h1>
 
       {loading ? (
-        <p className="text-gray-400">Loading popular movies...</p> // ✅ loading message
+        <p className="text-gray-400">Loading popular movies...</p> 
       ) : movies.length > 0 ? (
         <MovieSection movies={movies} />
       ) : (

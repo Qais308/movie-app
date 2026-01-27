@@ -22,10 +22,10 @@ const SearchPage = () => {
         const data = await res.json();
 
         const filtered = data.results.filter(
-          (item) => item.poster_path || item.Poster // keep movies or series with poster
+          (item) => item.poster_path || item.Poster 
         );
 
-        // Exact matches first
+    
         const sorted = filtered.sort((a, b) => {
           const searchLower = query.toLowerCase();
           const aName = (a.title || a.name || "").toLowerCase();

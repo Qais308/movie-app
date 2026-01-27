@@ -22,7 +22,6 @@ const Details = () => {
   const [reviewsTotalPages, setReviewsTotalPages] = useState(1);
   const [providers, setProviders] = useState([]); // ✅ Streaming providers
 
-  // ✅ Fetch movie/TV details
   const fetchDetails = async () => {
     try {
       const endpoint =
@@ -34,14 +33,13 @@ const Details = () => {
       const data = await res.json();
       setMovie(data);
 
-      // Get trailer
+      
       const videos = data.videos?.results || [];
       let trailer =
         videos.find((vid) => vid.type === "Trailer" && vid.site === "YouTube") ||
         videos.find((vid) => vid.site === "YouTube");
       if (trailer) setTrailerKey(trailer.key);
 
-      // ✅ IMDb rating for both movies & shows
       const imdbId = data.imdb_id || data.external_ids?.imdb_id;
       if (imdbId) {
         try {
@@ -60,7 +58,7 @@ const Details = () => {
     }
   };
 
-  // ✅ Fetch reviews (separate function)
+  
   const fetchReviews = async (page = 1) => {
     try {
       const res = await fetch(
@@ -81,7 +79,6 @@ const Details = () => {
     }
   };
 
-  // ✅ Fetch streaming providers
   const fetchProviders = async () => {
     try {
       const res = await fetch(
@@ -99,8 +96,8 @@ const Details = () => {
   // ✅ Run on mount
   useEffect(() => {
     fetchDetails();
-    fetchReviews(); // fetch first page
-    fetchProviders(); // fetch streaming platforms
+    fetchReviews(); 
+    fetchProviders();
   }, [id, mediaType]);
 
   if (!movie)
@@ -161,7 +158,6 @@ const Details = () => {
         </div>
       </div>
 
-      {/* ✅ Streaming Platforms */}
       {providers.length > 0 && (
         <div className="mt-6">
           <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold mb-2 sm:mb-4">
@@ -182,24 +178,20 @@ const Details = () => {
         </div>
       )}
 
- {/* Cast & Crew */}
 <div className="mt-6">
   <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold mb-2 sm:mb-4">
     Cast & Crew
   </h2>
   <div className="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto pb-2">
     {movie.credits ? (() => {
-      // Create a map to avoid repeating posters
       const peopleMap = new Map();
-
-      // Add cast
       movie.credits.cast.forEach((c) => {
         if (!c.profile_path) return;
         if (!peopleMap.has(c.id)) peopleMap.set(c.id, { ...c, jobs: [c.character] });
         else peopleMap.get(c.id).jobs.push(c.character);
       });
 
-      // Add crew
+  
       movie.credits.crew.forEach((c) => {
         if (!c.profile_path) return;
         if (!peopleMap.has(c.id)) peopleMap.set(c.id, { ...c, jobs: [c.job] });
@@ -207,7 +199,7 @@ const Details = () => {
       });
 
       return Array.from(peopleMap.values())
-        .slice(0, 20) // Top 20 people
+        .slice(0, 20) 
         .map((person) => (
           <div
             key={person.id}
@@ -231,8 +223,6 @@ const Details = () => {
   </div>
 </div>
 
-
-      {/* Trailer */}
       <div className="mt-6">
         <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold mb-2 sm:mb-4">
           Trailer
@@ -257,7 +247,7 @@ const Details = () => {
         )}
       </div>
 
-      {/* ✅ Reviews */}
+
       <ReviewsSection
         reviews={reviews}
         fetchReviews={fetchReviews}

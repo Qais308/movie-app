@@ -1,4 +1,3 @@
-// src/pages/GenrePage.jsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MovieSection from "../components/MovieSection";
@@ -27,18 +26,21 @@ const interleaveArrays = (arr1, arr2) => {
 const GenrePage = () => {
   const { genreId, genreName } = useParams();
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const sessionKey = `genre_${genreId}`;
     const storedMovies = sessionStorage.getItem(sessionKey);
     if (storedMovies) {
       setMovies(JSON.parse(storedMovies));
+      setLoading(false); 
       return;
     }
 
     const fetchGenreMovies = async () => {
       try {
-        // Fetch Indian movies for this genre
+        setLoading(true); 
+
         const indianRes = await fetch(
           `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&with_original_language=hi&sort_by=popularity.desc&page=1`
         );
@@ -48,7 +50,6 @@ const GenrePage = () => {
         );
         indiaMovies = shuffleArray(indiaMovies);
 
-        // Fetch global movies for this genre
         const globalRes = await fetch(
           `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&sort_by=popularity.desc&page=1`
         );
@@ -58,10 +59,8 @@ const GenrePage = () => {
         );
         globalMovies = shuffleArray(globalMovies);
 
-        // Merge Indian + global movies
         let combined = interleaveArrays(indiaMovies, globalMovies);
 
-        // Remove duplicates
         const combinedMap = new Map();
         combined.forEach((movie) => {
           if (!combinedMap.has(movie.id)) combinedMap.set(movie.id, movie);
@@ -72,6 +71,8 @@ const GenrePage = () => {
         sessionStorage.setItem(sessionKey, JSON.stringify(combined));
       } catch (err) {
         console.error("Error fetching genre movies:", err);
+      } finally {
+        setLoading(false); 
       }
     };
 
@@ -83,7 +84,11 @@ const GenrePage = () => {
       <h1 className="text-3xl font-bold mb-4 text-white">
         {genreName} Movies
       </h1>
-      {movies.length > 0 ? (
+
+    
+      {loading ? (
+        <p className="text-gray-400 text-lg">Loading movies...</p>
+      ) : movies.length > 0 ? (
         <MovieSection movies={movies} />
       ) : (
         <p className="text-gray-500">No movies found in this genre.</p>

@@ -25,7 +25,7 @@ const MovieSection = ({ fetchUrl, movies: propMovies, title }) => {
     <div className="mb-12 w-full mx-auto">
       {title && <h2 className="text-xl sm:text-2xl font-bold mb-6 px-2">{title}</h2>}
 
-      {/* Grid: 2 columns on small screens, 4+ on larger */}
+      
       <div className="flex flex-wrap gap-4 justify-center">
         {movies && movies.length > 0 ? (
           movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
