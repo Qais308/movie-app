@@ -28,7 +28,7 @@ export default function HeroSection() {
                       flex items-center justify-center px-4">
 
         <motion.div
-          className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl
+          className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl
                      border-2 rounded-2xl bg-black/40 p-6 sm:p-8 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -36,7 +36,7 @@ export default function HeroSection() {
         >
           <MovieLogo size="lg" fullText={true} />
 
-          <p className="mt-6 text-white font-extrabold text-lg sm:text-xl md:text-2xl leading-relaxed whitespace-pre-line">
+          <p className="mt-6 text-white font-extrabold text-xl md:text-3xl leading-relaxed whitespace-pre-line">
             {featuresText.trim()}
           </p>
         </motion.div>
